@@ -14,8 +14,6 @@
 
 include device/sony/common/BoardConfigCommon.mk
 
-PRODUCT_VENDOR_KERNEL_HEADERS := device/sony/msm8226-common/kernel-headers
-
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_BOARD_PLATFORM := msm8226
@@ -58,6 +56,7 @@ BOARD_TOMBSTONESIMAGE_PARTITION_SIZE := 73400320
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 USE_OPENGL_RENDERER := true
+TARGET_USES_C2D_COMPOSITION := true
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
@@ -65,10 +64,6 @@ BOARD_EGL_CFG := device/sony/msm8226-common/rootdir/system/lib/egl/egl.cfg
 
 BOARD_USES_QCOM_HARDWARE := true
 
-# RIL
-BOARD_PROVIDES_LIBRIL := true
-
-# Audio
 BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
 
@@ -95,9 +90,6 @@ HOSTAPD_VERSION := VER_0_8_X
 WIFI_DRIVER_FW_PATH_AP  := "ap"
 WIFI_DRIVER_FW_PATH_P2P := "p2p"
 WIFI_DRIVER_FW_PATH_STA := "sta"
-WIFI_DRIVER_MODULE_ARG := ""
-WIFI_DRIVER_MODULE_NAME := "wlan"
-WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # BT definitions for Qualcomm solution

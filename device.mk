@@ -29,10 +29,12 @@ PRODUCT_COPY_FILES += \
     $(SONY_ROOT)/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
     $(SONY_ROOT)/system/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
     $(SONY_ROOT)/system/etc/init.yukon.bt.sh:system/etc/init.yukon.bt.sh \
+    $(SONY_ROOT)/system/etc/sec_config:system/etc/sec_config \
     $(SONY_ROOT)/system/etc/gps.conf:system/etc/gps.conf
-
+ 
 # Copy extra files
 PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
@@ -49,6 +51,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 PRODUCT_COPY_FILES += \
+    $(SONY_ROOT)/system/etc/audio_effects.conf:system/etc/audio_effects.conf \
     $(SONY_ROOT)/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
     $(SONY_ROOT)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
     $(SONY_ROOT)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
@@ -82,6 +85,13 @@ PRODUCT_PACKAGES += \
     libtinycompress \
     libaudioroute
 
+# Audio effects
+PRODUCT_PACKAGES += \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
+    libqcomvoiceprocessingdescriptors \
+    libqcompostprocbundle
+
 # FM radio
 PRODUCT_PACKAGES += \
     qcom.fmradio \
@@ -92,6 +102,7 @@ PRODUCT_PACKAGES += \
 #GFX
 PRODUCT_PACKAGES += \
     gralloc.msm8226 \
+    copybit.msm8226 \
     hwcomposer.msm8226 \
     memtrack.msm8226 \
     libgenlock \
@@ -154,8 +165,7 @@ PRODUCT_PACKAGES += \
 
 #Charger
 PRODUCT_PACKAGES += \
-    charger \
-    charger_res_images \
+    charger_res_images
 
 PRODUCT_PACKAGES += \
     librs_jni \
