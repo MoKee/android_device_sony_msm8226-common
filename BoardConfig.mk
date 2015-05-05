@@ -12,15 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include device/sony/common/BoardConfigCommon.mk
-
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_BOARD_PLATFORM := msm8226
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := krait
-TARGET_CPU_SMP := true
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 TARGET_NO_RADIOIMAGE := true
@@ -40,7 +37,8 @@ BOARD_CUSTOM_BOOTIMG_MK := device/sony/msm8226-common/boot/custombootimg.mk
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=yukon user_debug=31 msm_rtb.filter=0x37 androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=yukon
+BOARD_KERNEL_CMDLINE += user_debug=31 msm_rtb.filter=0x37 androidboot.selinux=permissive
 
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
@@ -60,21 +58,11 @@ TARGET_USES_C2D_COMPOSITION := true
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 BOARD_EGL_CFG := device/sony/msm8226-common/rootdir/system/lib/egl/egl.cfg
 
-BOARD_USES_QCOM_HARDWARE := true
-
-BOARD_USES_GENERIC_AUDIO := false
 BOARD_USES_ALSA_AUDIO := true
 
-# FM Radio
-QCOM_FM_ENABLED := true
-AUDIO_FEATURE_ENABLED_FM := true
-
-# NFC
-BOARD_NFC_CHIPSET := pn547
-
-# Camera
 USE_CAMERA_STUB := false
 TARGET_USES_ION := true
 USE_DEVICE_SPECIFIC_CAMERA := true
@@ -105,20 +93,35 @@ TARGET_NO_RPC := true
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
-# Power definitions for Qualcomm solution
-TARGET_POWERHAL_VARIANT := qcom
-CM_POWERHAL_EXTENSION := yukon
-
 TARGET_SYSTEM_PROP := device/sony/msm8226-common/system.prop
 
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
 
-# Lights HAL
-TARGET_PROVIDES_LIBLIGHT := true
+# Enable dex-preoptimization to speed up first boot sequence
+WITH_DEXPREOPT := true
+
+include device/sony/common/BoardConfigCommon.mk
+
+# CM uses QCOM extras
+BOARD_USES_QCOM_HARDWARE := true
 
 # MK Hardware
 BOARD_HARDWARE_CLASS += device/sony/msm8226-common/mkhw
+
+# Power definitions for Qualcomm solution
+TARGET_POWERHAL_VARIANT := qcom
+CM_POWERHAL_EXTENSION := yukon
+
+# Lights HAL
+TARGET_PROVIDES_LIBLIGHT := true
+
+# NFC
+BOARD_NFC_CHIPSET := pn547
+
+# FM Radio
+QCOM_FM_ENABLED := true
+AUDIO_FEATURE_ENABLED_FM := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk

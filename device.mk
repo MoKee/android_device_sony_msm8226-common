@@ -51,7 +51,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
 PRODUCT_COPY_FILES += \
-    $(SONY_ROOT)/system/etc/audio_effects.conf:system/etc/audio_effects.conf \
+    $(SONY_ROOT)/system/etc/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     $(SONY_ROOT)/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
     $(SONY_ROOT)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
     $(SONY_ROOT)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
@@ -83,7 +83,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libtinyalsa \
     libtinycompress \
-    libaudioroute
+    libaudioroute \
+    libtinymix
 
 # Audio effects
 PRODUCT_PACKAGES += \
@@ -105,9 +106,27 @@ PRODUCT_PACKAGES += \
     copybit.msm8226 \
     hwcomposer.msm8226 \
     memtrack.msm8226 \
-    libgenlock \
     libqdutils \
     libqdMetaData
+
+PRODUCT_PACKAGES += \
+    libion
+
+#OMX
+PRODUCT_PACKAGES += \
+    libc2dcolorconvert \
+    libdashplayer \
+    libdivxdrmdecrypt \
+    libstagefrighthw \
+    libOmxCore \
+    libmm-omxcore \
+    libOmxVdec \
+    libOmxVdecHevc \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
+    libOmxVenc
 
 #lights
 PRODUCT_PACKAGES += \
@@ -119,22 +138,6 @@ PRODUCT_PACKAGES += \
     NfcNci \
     Tag \
     nfc_nci.pn54x.default
-
-
-# Omx
-PRODUCT_PACKAGES += \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libOmxCore \
-    libOmxEvrcEnc \
-    libOmxQcelp13Enc \
-    libOmxVdec \
-    libOmxVenc \
-    libc2dcolorconvert \
-    libdashplayer \
-    libdivxdrmdecrypt \
-    libmm-omxcore \
-    libstagefrighthw
 
 # Power
 PRODUCT_PACKAGES += \
@@ -152,6 +155,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libQWiFiSoftApCfg \
     libqsap_sdk \
+    dhcpcd.conf \
     hostapd \
     libwpa_client \
     wpa_supplicant \
@@ -171,6 +175,9 @@ PRODUCT_PACKAGES += \
     rmt_storage \
     ta_qmi_service \
     ta2bin
+
+PRODUCT_PACKAGES += \
+    rmt_storage
 
 #OSS
 PRODUCT_PACKAGES += \
@@ -194,13 +201,19 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     extract_elf_ramdisk
 
-# Set default USB interface
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
+# Platform specific tags
+#
+PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Platform specific properties
+#
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qualcomm.bt.hci_transport=smd
+
+# Platform specific default properties
+#
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=mtp
 
 # QC Perf
 PRODUCT_PROPERTY_OVERRIDES += \
